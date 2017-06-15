@@ -112,7 +112,7 @@ class CommitteesClient(Client):
         if congress:
             kwargs['congno'] = congress
 
-        return self.fetch('congCmteIndus', **kwargs)['committee']['@attributes']
+        return self.fetch('congCmteIndus', **kwargs)['committee']['member']
 
 
 class OrganizationsClient(Client):

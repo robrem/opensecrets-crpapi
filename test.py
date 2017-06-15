@@ -93,7 +93,7 @@ class CommitteesTest(APITest):
             'https://www.opensecrets.org/api/?method=congCmteIndus&output=json&cmte=HARM&indus=F10&congno=113&apikey={0}' \
             .format(API_KEY)
 
-        self.check_response(cmte, url, lambda r: r['response']['committee']['@attributes'])
+        self.check_response(cmte, url, lambda r: r['response']['committee']['member'])
 
 
 class OrganizationsTest(APITest):
