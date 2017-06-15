@@ -49,4 +49,4 @@ All API functions are abstracted to corresponding client methods, and accept the
     # use fetch to access the endpoints more directly, without pre-parsed results
     >>> summ = crp.fetch('candSummary', cid='N00007360')
     >>> summ['summary']['@attributes']['first_elected']
-    >>> summ['summary']['@attributes']['first_elected']
+    >>> '1987'
