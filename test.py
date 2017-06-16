@@ -4,7 +4,7 @@ import os
 import urllib, urllib2
 import unittest
 
-from wr_crpapi import CRP
+from crpapi import CRP
 
 API_KEY = os.environ['OPENSECRETS_API_KEY']
 
