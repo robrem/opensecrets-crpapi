@@ -1,14 +1,14 @@
 """
-A Python client for interacting with the Center for Responsive Politics' 
+A Python client for interacting with the Center for Responsive Politics'
 campaign finance data.
 
 API docs: https://www.opensecrets.org/resources/create/api_doc.php
 """
 
-import httplib2
 import json
 import os
 import urllib, urllib2
+import httplib2
 
 
 class CRPError(Exception):
@@ -35,7 +35,7 @@ class Client(object):
 
         params = urllib.urlencode(kwargs)
         url = self.BASE_URI.format(method=method, apikey=self.apikey, params=params)
-        headers = { 'User-Agent' : 'Mozilla/5.0' }
+        headers = {'User-Agent' : 'Mozilla/5.0'}
 
         resp, content = self.http.request(url, headers=headers)
         content = json.loads(content)
@@ -49,8 +49,8 @@ class Client(object):
 class CandidatesClient(Client):
 
     def get(self, id_code):
-        """ 
-            id_code may be either a candidate's specific CID, or a two letter 
+        """
+            id_code may be either a candidate's specific CID, or a two letter
             state code, or a 4 character district code.
         """
         return self.fetch('getLegislators', id=id_code)['legislator']
