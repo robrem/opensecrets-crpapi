@@ -6,7 +6,7 @@ except ImportError:
 with open('README.rst') as f:
     README = f.read()
 
-VERSION = '0.1.2'
+VERSION = '0.2.0'
 
 setup(
     name = 'opensecrets-crpapi',
