@@ -7,8 +7,12 @@ API docs: https://www.opensecrets.org/resources/create/api_doc.php
 
 import json
 import os
-import urllib, urllib2
 import httplib2
+
+try:
+    import urllib.parse as urllib
+except ImportError:
+    import urllib as urllib
 
 
 class CRPError(Exception):
@@ -124,6 +128,12 @@ class OrganizationsClient(Client):
         return self.fetch('orgSummary', id=org_id)['organization']['@attributes']
 
 
+class IndependentExpendituresClient(Client):
+
+    def get(self):
+        return self.fetch('independentExpend')['indexp']
+
+
 class CRP(Client):
 
     def __init__(self, apikey=None, cache='.cache'):
@@ -135,3 +145,4 @@ class CRP(Client):
         self.candidates = CandidatesClient(self.apikey, cache)
         self.committees = CommitteesClient(self.apikey, cache)
         self.orgs = OrganizationsClient(self.apikey, cache)
+        self.indexp = IndependentExpendituresClient(self.apikey, cache)

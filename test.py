@@ -1,12 +1,15 @@
-import httplib2
 import json
 import os
-import urllib, urllib2
 import unittest
+import httplib2
 
 from crpapi import CRP
 
 API_KEY = os.environ['OPENSECRETS_API_KEY']
+
+def close_connections(http):
+    for k, conn in http.connections.items():
+        conn.close()
 
 
 class APITest(unittest.TestCase):
@@ -14,6 +17,10 @@ class APITest(unittest.TestCase):
     def setUp(self):
         self.crp = CRP(API_KEY)
         self.http = httplib2.Http()
+
+    def tearDown(self):
+        close_connections(self.http)
+        close_connections(self.crp.http)
 
     def check_response(self, result, url, parse=''):
         headers = { 'User-Agent' : 'Mozilla/5.0' }
@@ -113,6 +120,17 @@ class OrganizationsTest(APITest):
             .format(API_KEY)
 
         self.check_response(summ, url, lambda r: r['response']['organization']['@attributes'])
+
+
+class IndependentExpendituresTest(APITest):
+
+    def test_get(self):
+        exp = self.crp.indexp.get()
+        url = \
+            'https://www.opensecrets.org/api/?method=independentExpend&output=json&apikey={0}' \
+            .format(API_KEY)
+
+        self.check_response(exp, url, lambda r: r['response']['indexp'])
 
 
 if __name__ == '__main__':
