@@ -1,3 +1,7 @@
+"""
+Test suite for the CRP API client.
+"""
+
 import json
 import os
 import unittest
@@ -13,6 +17,10 @@ def close_connections(http):
 
 
 class APITest(unittest.TestCase):
+    """
+    Handles comparison of the test response to the response from a direct
+    call to the OpenSecrets.org API.
+    """
 
     def setUp(self):
         self.crp = CRP(API_KEY)
@@ -34,6 +42,9 @@ class APITest(unittest.TestCase):
 
 
 class CandidatesTest(APITest):
+    """
+    Tests all Candidates methods.
+    """
 
     def test_get(self):
         pelosi = self.crp.candidates.get('N00007360')
@@ -93,6 +104,9 @@ class CandidatesTest(APITest):
 
 
 class CommitteesTest(APITest):
+    """
+    Tests all Committees methods.
+    """
 
     def test_cmte_by_ind(self):
         cmte = self.crp.committees.cmte_by_ind('HARM', 'F10', '113')
@@ -104,6 +118,9 @@ class CommitteesTest(APITest):
 
 
 class OrganizationsTest(APITest):
+    """
+    Tests all Organizations methods.
+    """
 
     def test_get(self):
         org = self.crp.orgs.get('Goldman')
@@ -123,6 +140,9 @@ class OrganizationsTest(APITest):
 
 
 class IndependentExpendituresTest(APITest):
+    """
+    Tests all Independent Expenditures methods.
+    """
 
     def test_get(self):
         exp = self.crp.indexp.get()
