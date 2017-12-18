@@ -25,6 +25,11 @@ class CRPError(Exception):
 
 
 class Client(object):
+    """
+    The Client class handles retrieving and parsing responses from the
+    OpenSecrets.org API.
+
+    """
 
     BASE_URI = \
             'https://www.opensecrets.org/api/?method={method}&output=json&apikey={apikey}&{params}'
@@ -51,11 +56,15 @@ class Client(object):
 
 
 class CandidatesClient(Client):
+    """
+    Retrieves and parses information pertaining to current Congressional
+    legislators.
+    """
 
     def get(self, id_code):
         """
             id_code may be either a candidate's specific CID, or a two letter
-            state code, or a 4 character district code.
+            state code, or a four character district code.
         """
         return self.fetch('getLegislators', id=id_code)['legislator']
 
@@ -109,6 +118,10 @@ class CandidatesClient(Client):
 
 
 class CommitteesClient(Client):
+    """
+    Retrieves and parses fundraising information pertaining to Congressional
+    committees.
+    """
 
     def cmte_by_ind(self, cmte, industry, congress=None):
         kwargs = {'cmte' : cmte, 'indus' : industry}
@@ -120,6 +133,10 @@ class CommitteesClient(Client):
 
 
 class OrganizationsClient(Client):
+    """
+    Retrieves and parses information pertaining to fundraising
+    organizations.
+    """
 
     def get(self, org_name):
         return self.fetch('getOrgs', org=org_name)['organization']
@@ -129,12 +146,25 @@ class OrganizationsClient(Client):
 
 
 class IndependentExpendituresClient(Client):
+    """
+    Retrieves and parses information regarding independent expenditure
+    transactions.
+    """
 
     def get(self):
         return self.fetch('independentExpend')['indexp']
 
 
 class CRP(Client):
+    """
+    The public interface for the OpenSecrets.org API.
+
+    Methods are namespaced by topic. Responses are returned as decoded JSON
+    and trimmed for ease of use.
+
+    An OpenSecrets.org API key is required, which can be passed as an argument
+    when creating a new instance, or included as an environment variable.
+    """
 
     def __init__(self, apikey=None, cache='.cache'):
 

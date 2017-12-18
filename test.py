@@ -23,7 +23,7 @@ class APITest(unittest.TestCase):
         close_connections(self.crp.http)
 
     def check_response(self, result, url, parse=''):
-        headers = { 'User-Agent' : 'Mozilla/5.0' }
+        headers = {'User-Agent' : 'Mozilla/5.0'}
         response = self.http.request(url, headers=headers)[1]
         response = json.loads(response)
 
