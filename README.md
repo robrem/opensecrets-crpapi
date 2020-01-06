@@ -25,7 +25,7 @@ to trim the fat. For example:
 
 # get a specific legislator by CID
 >>> cand = crp.candidates.get('N00007360')
->>> cand['lastname']
+>>> cand['@attributes']['lastname']
 'PELOSI'
 
 # get the top contributors to a candidate for a specific cycle
